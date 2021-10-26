@@ -1,0 +1,13 @@
+html {
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+/* Modern Reset */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
