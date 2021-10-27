@@ -4,8 +4,9 @@ import CreateEvent from "./Components/CreateEvent";
 function Home(props) {
   const { setEventId } = props;
 
-  //Getting events data
+  //Saving events data
   const [events, setEvents] = useState([]);
+  console.log("Events", events);
 
   //Hide form
   const [hideCreateForm, setHideCreateForm] = useState(true);
@@ -51,7 +52,12 @@ function Home(props) {
             Create Event
           </button>
         </div>
-        {!hideCreateForm && <CreateEvent />}
+        {!hideCreateForm && (
+          <CreateEvent
+            setHideCreateForm={setHideCreateForm}
+            hideCreateForm={hideCreateForm}
+          />
+        )}
       </main>
     </>
   );
