@@ -26,7 +26,7 @@ function Home(props) {
         <nav>
           <p>Logo</p>
           <p>
-            <a href="https://www.google.com/">Create Customer</a>
+            <a href="http://localhost:3030/customers">Create Customer</a>
           </p>
         </nav>
       </header>
