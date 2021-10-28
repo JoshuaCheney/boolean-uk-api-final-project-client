@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
 export default function CreateEvent(props) {
-  const { setHideCreateForm, hideCreateForm } = props;
+  const { setHideCreateForm, hideCreateForm, setEvents, events } = props;
 
   //User input
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
-  const [eventVenue, setEventVenue] = useState("");
+  const [venueCity, setVenueCity] = useState("");
+  const [venueBuilding, setBuidingVenue] = useState("");
+  const [venueStreet, setVenueStreet] = useState("");
+  const [venuePost, setVenuePost] = useState("");
 
   //Getting venue data
   const [venues, setVenues] = useState([]);
@@ -15,17 +18,45 @@ export default function CreateEvent(props) {
   //Form Handlers
   const handleName = (e) => setEventName(e.target.value);
   const handleDate = (e) => setEventDate(e.target.value);
-  const handleVenue = (e) => setEventVenue(e.target.value);
+  const handleVenue = (e) => setVenueCity(e.target.value);
+  const handleBuilding = (e) => setBuidingVenue(e.target.value);
+  const handleStreet = (e) => setVenueStreet(e.target.value);
+  const handlePost = (e) => setVenuePost(e.target.value);
 
   function handleSubmit(e) {
     e.preventDefault();
-
     const newEvent = {
-      name: "name",
+      name: eventName,
+      date: "2022-06-25T00:00:00.000Z",
+      band: {
+        name: "Test",
+        genre: "Test",
+      },
+      venue: {
+        buildingName: venueBuilding,
+        city: venueCity,
+        street: venueStreet,
+        postCode: venuePost,
+      },
     };
+
+    const fetchOptions = {
+      method: "POST",
+      headers: {
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify(newEvent),
+    };
+
+    fetch("http://localhost:3030/events", fetchOptions)
+      .then((res) => res.json())
+      .then((newEvent) => {
+        console.log(newEvent);
+        setEvents([...events, newEvent.data]);
+      });
   }
 
-  //FETCH API
+  //FETCH API Venues
   useEffect(() => {
     const url = `http://localhost:3030/venues`;
     fetch(url)
@@ -42,7 +73,7 @@ export default function CreateEvent(props) {
           <h2>Create Event</h2>
         </div>
         <div>
-          <label htmlFor="text">Name</label>
+          <label htmlFor="text">Name:</label>
           <input
             id="name"
             name="name"
@@ -52,7 +83,7 @@ export default function CreateEvent(props) {
           />
         </div>
         <div>
-          <label htmlFor="date">Date</label>
+          <label htmlFor="date">Date:</label>
           <input
             type="date"
             name="date"
@@ -75,16 +106,47 @@ export default function CreateEvent(props) {
                   value={venue.id}
                   id={index}
                   key={index}
-                  value={venue.id}
+                  value={venue.city}
                 >
-                  {venue.buildingName}
+                  {venue.city}
                 </option>
               );
             })}
           </select>
         </div>
         <div>
-          <button type="button" name="button-send" id="button-send">
+          <label htmlFor="text">Building:</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            onChange={handleBuilding}
+            value={venueBuilding}
+          />
+        </div>
+        <div>
+          <label htmlFor="text">Street:</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            onChange={handleStreet}
+            value={venueStreet}
+          />
+        </div>
+        <div>
+          <label htmlFor="text">Postcode:</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            onChange={handlePost}
+            value={venuePost}
+          />
+        </div>
+
+        <div>
+          <button type="submit" name="button-send" id="button-send">
             Send
           </button>
         </div>
@@ -92,7 +154,9 @@ export default function CreateEvent(props) {
           <button
             type="button-cancel"
             id="cancel"
-            onClick={() => setHideCreateForm(!hideCreateForm)}
+            onClick={() => {
+              setHideCreateForm(!hideCreateForm);
+            }}
           >
             Cancel
           </button>

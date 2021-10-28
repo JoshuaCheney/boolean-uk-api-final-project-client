@@ -32,14 +32,13 @@ function Home(props) {
       </header>
       <main>
         <ul>
-          <h1>Check the new events:</h1>
+          <h2>Events:</h2>
           {events.map((event, index) => {
             return (
               <li key={index}>
-                <a href="https://www.google.com/" target="_parent">
+                <a href="/customers" target="_parent">
                   <div onClick={() => setEventId(event.id)}>
-                    <h2>{event.name}</h2>
-                    <p>{event.date}</p>
+                    <p>{event.name}</p>
                   </div>
                 </a>
               </li>
@@ -55,6 +54,8 @@ function Home(props) {
           <CreateEvent
             setHideCreateForm={setHideCreateForm}
             hideCreateForm={hideCreateForm}
+            setEvents={setEvents}
+            events={events}
           />
         )}
       </main>
