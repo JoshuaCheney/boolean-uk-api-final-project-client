@@ -64,6 +64,11 @@ function Customers() {
             method: "DELETE"
         }
         console.log("selected id", id)
+        const deleteUrl = `http://localhost:3030/customers/${id}`;
+
+        console.log("Inside deleteUrl: ", deleteUrl);
+
+        fetch(deleteUrl, customerToDelete);
     }
 
     return (
