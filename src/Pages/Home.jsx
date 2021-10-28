@@ -6,7 +6,6 @@ function Home(props) {
 
   //Saving events data
   const [events, setEvents] = useState([]);
-  console.log("Events", events);
 
   //Hide form
   const [hideCreateForm, setHideCreateForm] = useState(true);
