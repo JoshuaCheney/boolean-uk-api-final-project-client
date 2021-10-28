@@ -53,16 +53,17 @@ function Customers() {
         fetch("http://localhost:3030/customers", fetchOptions)
             .then((res) => res.json())
             .then((newCustomer) => {
-
+                console.log(newCustomer)
+                setCustomerList([...customerList, newCustomer.data])
             })
     }
 
 
-    const handleDelete = (event) => {
+    const handleDelete = (id) => {
         const customerToDelete = {
             method: "DELETE"
         }
-
+        console.log("selected id", id)
     }
 
     return (
@@ -71,22 +72,36 @@ function Customers() {
                 <nav>
                     <p>Logo</p>
                     <p>
-                        <a href="http://localhost:3030/customers">Create Customer</a>
+                        <a href="http://localhost:3000/customers">Create Customer</a>
                     </p>
                 </nav>
             </header>
             <main>
                 <section>
+                    <div>
+                        <h2>Create a new customer!</h2>
+                        <form action="" onSubmit={handleSubmit}>
+                            <label htmlFor="name-input">Name:</label>
+                            <input type="text" onChange={handleName} />
+                            <label htmlFor="age-input">Age:</label>
+                            <input type="text" onChange={handleAge} />
+                            <label htmlFor="preferred-genre-input">Favourite Genre:</label>
+                            <input type="text" onChange={handlePreferredGenre} />
+                            <button type="submit">Create</button>
+                        </form>
+                    </div>
+                </section>
+                <section>
                     <ul>
                         {customerList.map((customer, index) => {
-                            const { name, age, preferredGenre } = customer
+                            const { id, name, age, preferredGenre } = customer
                             return (
                                 <li key={index}>
                                     <h3>Name: {name}</h3>
                                     <p>Age: {age}</p>
                                     <p>Favourite Genre: {preferredGenre}</p>
                                     <button
-                                        onClick={handleDelete}>Delete Customer</button>
+                                        onClick={e => handleDelete(id)}>Delete Customer</button>
                                 </li>
                             )
                         })}
