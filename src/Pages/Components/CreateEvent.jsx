@@ -8,7 +8,6 @@ export default function CreateEvent(props) {
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventVenue, setEventVenue] = useState("");
-  console.log("Name,date,venue", eventName, eventDate, eventVenue);
 
   //Getting venue data
   const [venues, setVenues] = useState([]);
@@ -64,16 +63,19 @@ export default function CreateEvent(props) {
         </div>
         <div>
           <label>Select a venue: </label>
-
-          <select htmlFor="select" name="select" id="select" value={"one"}>
+          <select
+            htmlFor="select"
+            name="select"
+            id="select"
+            onChange={handleVenue}
+          >
             {venues.map((venue, index) => {
               return (
                 <option
                   value={venue.id}
                   id={index}
                   key={index}
-                  onChange={handleVenue}
-                  value={venue.buildingName}
+                  value={venue.id}
                 >
                   {venue.buildingName}
                 </option>
