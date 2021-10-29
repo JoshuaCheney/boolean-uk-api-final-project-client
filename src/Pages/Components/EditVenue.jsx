@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 // import { Route, Switch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function EditVenue(props) {
   const { venues, setVenues, hideEditForm, setHideEditForm } = props;
 
+  const { id } = useParams();
+  console.log("ID use params", id);
+
   //User input
-  const [building, setBuilding] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [postCode, setPostCode] = useState("");
+  const [building, setBuilding] = useState([]);
+  const [city, setCity] = useState([]);
+  const [street, setStreet] = useState([]);
+  const [postCode, setPostCode] = useState([]);
 
   //Form Handlers
   const handleBuilding = (e) => setBuilding(e.target.value);
@@ -18,37 +22,62 @@ export default function EditVenue(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // const newEvent = {
-    //   name: eventName,
-    //   date: "2022-06-25T00:00:00.000Z",
-    //   band: {
-    //     name: "Test",
-    //     genre: "Test",
-    //   },
-    //   venue: {
-    //     buildingName: venueBuilding,
-    //     city: venueCity,
-    //     street: venueStreet,
-    //     postCode: venuePost,
-    //   },
-    // };
+    const updatedVenue = {
+      buildingName: building,
+      city: city,
+      street: street,
+      postCode: postCode,
+    };
 
-    // const fetchOptions = {
-    //   method: "PUT",
-    //   headers: {
-    //     "content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(newEvent),
-    // };
+    const fetchOptions = {
+      method: "PUT",
+      headers: {
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedVenue),
+    };
 
-    // fetch("http://localhost:3030/events", fetchOptions)
-    //   .then((res) => res.json())
-    //   .then((newEvent) => {
-    //     console.log(newEvent);
-    //     setEvents([...events, newEvent.data]);
-    //   });
+    fetch(`http://localhost:3030/venues/${id}`, fetchOptions)
+      .then((res) => res.json())
+      .then((updatedVenue) => {
+        console.log(updatedVenue);
+
+        const updatedVenues = venues.map((venue) => {
+          if (venue.id === updatedVenue.id) {
+            return {
+              ...updatedVenue
+            }
+          } else {
+            return venue
+          }
+        })
+        console.log("updated venues", updatedVenues)
+        setVenues(updatedVenues)
+      });
   }
 
+  //   const updatedFilms = films.map((film) => {
+  //     if (film.id === updatedTicket.filmId) {
+  //       const updatedTickets = film.tickets.map((ticket) => {
+  //         if (ticket.id === updatedTicket.id) {
+  //           return {
+  //             ...updatedTicket
+  //           };
+  //         } else {
+  //           return ticket;
+  //         }
+  //       });
+  //       console.log(updatedTickets);
+  //       return {
+  //         ...film,
+  //         tickets: updatedTickets
+  //       };
+  //     } else {
+  //       return film;
+  //     }
+  //   });
+  //   setFilms(updatedFilms);
+  // });
   //FETCH API Venues
   useEffect(() => {
     const url = `http://localhost:3030/venues`;

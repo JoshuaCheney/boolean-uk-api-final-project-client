@@ -17,6 +17,7 @@ function Home(props) {
         setEvents(Data.data);
       });
   }, []);
+  console.log("events", events)
 
   return (
     <>
