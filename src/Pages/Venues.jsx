@@ -25,7 +25,6 @@ function Venues(props) {
                 setEventDetails(Data.data);
             });
     }, []);
-    console.log("event details", eventDetails)
 
     return (
         <>
@@ -42,10 +41,10 @@ function Venues(props) {
                     <h3>Event Details</h3>
                     <p>{eventDetails.name}</p>
                     <p>{eventDetails.date}</p>
-                    <p>{venues.buildingName}</p>
-                    <p>{venues.city}</p>
-                    <p>{venues.street}</p>
-                    <p>{venues.postCode}</p>
+                    <p>{venues[0].buildingName}</p>
+                    <p>{venues[0].city}</p>
+                    <p>{venues[0].street}</p>
+                    <p>{venues[0].postCode}</p>
                     <button onClick={() => setHideEditForm(!hideEditForm)}>
                         Update Venue
                     </button>
