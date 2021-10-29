@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CreateEvent from "./Components/CreateEvent";
 
 function Home(props) {
-  const { setEventId } = props;
+  const { setEventId, eventId } = props;
 
   //Saving events data
   const [events, setEvents] = useState([]);
@@ -26,7 +26,7 @@ function Home(props) {
         <nav>
           <p>Logo</p>
           <p>
-            <a href="http://localhost:3000/customers">Create Customer</a>
+            <a href="/customers">Create Customer</a>
           </p>
         </nav>
       </header>
@@ -36,7 +36,7 @@ function Home(props) {
           {events.map((event, index) => {
             return (
               <li key={index}>
-                <a href="/customers" target="_parent">
+                <a href="events/id" target="_parent">
                   <div onClick={() => setEventId(event.id)}>
                     <p>{event.name}</p>
                   </div>

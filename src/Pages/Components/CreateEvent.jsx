@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
 
 export default function CreateEvent(props) {
   const { setHideCreateForm, hideCreateForm, setEvents, events } = props;
@@ -102,12 +101,7 @@ export default function CreateEvent(props) {
           >
             {venues.map((venue, index) => {
               return (
-                <option
-                  value={venue.id}
-                  id={index}
-                  key={index}
-                  value={venue.city}
-                >
+                <option id={index} key={index} value={venue.city}>
                   {venue.city}
                 </option>
               );
