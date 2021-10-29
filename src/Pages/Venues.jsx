@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import EditVenue from "./Components/EditVenue";
+import { useParams } from "react-router-dom";
 
 function Venues(props) {
   const { eventId, venues, setVenues } = props;
+
+  const { id } = useParams();
+  console.log("ID use params", id);
 
   //Save Event
   const [eventDetails, setEventDetails] = useState([]);
@@ -12,7 +16,7 @@ function Venues(props) {
 
   //Get Event by Id
   useEffect(() => {
-    const url = `http://localhost:3030/events/1`;
+    const url = `http://localhost:3030/events/${id}`;
     //should be ${eventId} but it isn't working
 
     fetch(url)

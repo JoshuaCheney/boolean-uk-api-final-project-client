@@ -6,11 +6,8 @@ import Customers from './Pages/Customers';
 import Venues from "./Pages/Venues";
 
 
-function App() {
-  //Event ID
-  const [eventId, setEventId] = useState("1");
-  console.log("ID", eventId);
 
+function App() {
   //Saving Venues Data
   const [venues, setVenues] = useState([{}]);
 
@@ -27,12 +24,12 @@ function App() {
   return (
     <Switch>
       <Route exact path="/">
-        <Home setEventId={setEventId} eventId={eventId}/>
+        <Home/>
       </Route>
       <Route exact path="/customers">
         <Customers />
       </Route>
-      <Route exact path="/events/id" eventId={eventId}>
+      <Route path="/venues/:id" exact>
         <Venues venues={venues} setVenues={setVenues}/>
       </Route>
     </Switch>

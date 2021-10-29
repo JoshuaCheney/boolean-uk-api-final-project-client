@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import CreateEvent from "./Components/CreateEvent";
 
 function Home(props) {
-  const { setEventId, eventId } = props;
-
   //Saving events data
   const [events, setEvents] = useState([]);
 
@@ -36,8 +34,8 @@ function Home(props) {
           {events.map((event, index) => {
             return (
               <li key={index}>
-                <a href="events/id" target="_parent">
-                  <div onClick={() => setEventId(event.id)}>
+                <a href={`venues/${event.id}`} target="_parent">
+                  <div>
                     <p>{event.name}</p>
                   </div>
                 </a>
